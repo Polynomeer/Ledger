@@ -19,6 +19,7 @@ public class LogIn {
 
     public LogIn() {
         frame = new JFrame();
+        frame.setTitle("Ledger Log In");
         frame.setResizable(false);
         frame.setSize(600, 400);
         frame.setBounds(100, 100, 450, 300);
@@ -89,7 +90,7 @@ public class LogIn {
 
     private static boolean isPasswordCorrect(char[] input) {
         boolean isCorrect = true;
-        char[] correctPassword = { '1', '2', '3', '4', 'a', 'b', 'c' };
+        char[] correctPassword = { '1', '2', '3', '4' };
 
         if (input.length != correctPassword.length) {
             isCorrect = false;

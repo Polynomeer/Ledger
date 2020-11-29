@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class SignUp extends JDialog {
     public SignUp(Window parent, JTextField textField) {
-        super(parent, "LogIn", ModalityType.APPLICATION_MODAL);
+        super(parent, "Sign Up", ModalityType.APPLICATION_MODAL);
         setSize(400,260);
         setLayout(null);
         JLabel label = new JLabel("Enter Text");

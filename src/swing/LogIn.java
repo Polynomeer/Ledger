@@ -21,10 +21,8 @@ public class LogIn {
         frame = new JFrame();
         frame.setResizable(false);
         frame.setSize(600, 400);
-        frame.setLocationRelativeTo(null);
         frame.setBounds(100, 100, 450, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+        frame.setLocationRelativeTo(null);
 
         panel = new JPanel();
         idLabel = new JLabel("ID");
@@ -50,8 +48,10 @@ public class LogIn {
         addActionListeners();
 
         frame.add(panel);
-        frame.getContentPane().add(panel);
+//        frame.getContentPane().setLayout(null);
+//        frame.getContentPane().add(panel);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
     private void addActionListeners(){

@@ -1,5 +1,7 @@
 package swing;
 
+import java.awt.*;
+
 public class LedgerMain {
 
     static boolean isLoggedIn = false;
@@ -31,9 +33,15 @@ public class LedgerMain {
         }
         //</editor-fold>
 
-        new LogIn();
-
-
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new LogIn();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 

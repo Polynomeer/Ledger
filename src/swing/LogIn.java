@@ -1,19 +1,38 @@
 package swing;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-public class LogIn extends JFrame {
+public class LogIn {
+
+    private JFrame frame;
+    private JPanel panel;
+    private JLabel idLabel;
+    private JLabel pwLabel;
+    private JTextField txtID;
+    private JPasswordField txtPass;
+    private JButton loginBtn;
+    private JButton signBtn;
+
     public LogIn() {
-        JPanel panel = new JPanel();
-        JLabel idLabel = new JLabel("ID");
-        JLabel pwLabel = new JLabel("Password");
-        JTextField txtID = new JTextField(10);
-        JPasswordField txtPass = new JPasswordField(10);
-        JButton loginBtn = new JButton("Log In");
-        JButton signBtn = new JButton("Sign Up");
+        frame = new JFrame();
+        frame.setResizable(false);
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setBounds(100, 100, 450, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
+
+        panel = new JPanel();
+        idLabel = new JLabel("ID");
+        pwLabel = new JLabel("Password");
+        txtID = new JTextField(10);
+        txtPass = new JPasswordField(10);
+        loginBtn = new JButton("Log In");
+        signBtn = new JButton("Sign Up");
 
         idLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         idLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -28,6 +47,14 @@ public class LogIn extends JFrame {
         panel.add(loginBtn);
         panel.add(signBtn);
 
+        addActionListeners();
+
+        frame.add(panel);
+        frame.getContentPane().add(panel);
+        frame.setVisible(true);
+
+    }
+    private void addActionListeners(){
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,7 +63,7 @@ public class LogIn extends JFrame {
                 if (id.equals(txtID.getText()) && isPasswordCorrect(txtPass.getPassword())) {
                     JOptionPane.showMessageDialog(null, "You have logged in successfully");
 
-                    setVisible(false);
+                    frame.setVisible(false);
                     /* Create and display the form */
                     java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
@@ -50,13 +77,14 @@ public class LogIn extends JFrame {
             }
         });
 
-        add(panel);
+        signBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SignUp signUp = new SignUp(frame, txtID);
+                signUp.setVisible(true);
+            }
+        });
 
-        setVisible(true);
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private static boolean isPasswordCorrect(char[] input) {

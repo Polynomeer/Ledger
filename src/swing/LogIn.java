@@ -3,6 +3,7 @@ package swing;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class LogIn extends JFrame {
     public LogIn() {
@@ -23,9 +24,8 @@ public class LogIn extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = "jacob";
-                String pass = "1234";
 
-                if (id.equals(txtID.getText()) && pass.equals(txtPass.getText())) {
+                if (id.equals(txtID.getText()) && isPasswordCorrect(txtPass.getPassword())) {
                     JOptionPane.showMessageDialog(null, "You have logged in successfully");
 
                     setVisible(false);
@@ -51,4 +51,19 @@ public class LogIn extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    private static boolean isPasswordCorrect(char[] input) {
+        boolean isCorrect = true;
+        char[] correctPassword = { '1', '2', '3', '4', 'a', 'b', 'c' };
+
+        if (input.length != correctPassword.length) {
+            isCorrect = false;
+        } else {
+            isCorrect = Arrays.equals (input, correctPassword);
+        }
+
+        //Zero out the password.
+        Arrays.fill(correctPassword,'0');
+
+        return isCorrect;
+    }
 }

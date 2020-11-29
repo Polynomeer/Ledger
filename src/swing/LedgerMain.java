@@ -36,7 +36,8 @@ public class LedgerMain {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new LogIn();
+                    LogIn logIn = new LogIn();
+                    logIn.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

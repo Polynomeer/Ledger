@@ -2,8 +2,6 @@ package swing;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class LogIn extends JFrame {
@@ -64,34 +62,24 @@ public class LogIn extends JFrame {
     }
 
     private void addActionListeners() {
-        loginBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String id = "jacob";
+        loginBtn.addActionListener(e -> {
+            String id = "jacob";
 
-                if (id.equals(txtID.getText()) && isPasswordCorrect(txtPass.getPassword())) {
-                    JOptionPane.showMessageDialog(null, "You have logged in successfully");
+            if (id.equals(txtID.getText()) && isPasswordCorrect(txtPass.getPassword())) {
+                JOptionPane.showMessageDialog(null, "You have logged in successfully");
 
-                    setVisible(false);
-                    /* Create and display the form */
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new Home().setVisible(true);
-                        }
-                    });
+                setVisible(false);
+                /* Create and display the form */
+                EventQueue.invokeLater(() -> new Home().setVisible(true));
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Failed to login..");
-                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to login..");
             }
         });
 
-        signBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SignUp signUp = new SignUp(LogIn.this, txtID);
-                signUp.setVisible(true);
-            }
+        signBtn.addActionListener(e -> {
+            SignUp signUp = new SignUp(LogIn.this, txtID);
+            signUp.setVisible(true);
         });
 
     }

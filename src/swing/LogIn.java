@@ -13,12 +13,20 @@ public class LogIn extends JFrame {
         JTextField txtID = new JTextField(10);
         JPasswordField txtPass = new JPasswordField(10);
         JButton loginBtn = new JButton("Log In");
+        JButton signBtn = new JButton("Sign Up");
 
+        idLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        idLabel.setForeground(new java.awt.Color(255, 255, 255));
+        pwLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        pwLabel.setForeground(new java.awt.Color(255, 255, 255));
+
+        panel.setBackground(new java.awt.Color(71, 120, 197));
         panel.add(idLabel);
         panel.add(txtID);
         panel.add(pwLabel);
         panel.add(txtPass);
         panel.add(loginBtn);
+        panel.add(signBtn);
 
         loginBtn.addActionListener(new ActionListener() {
             @Override

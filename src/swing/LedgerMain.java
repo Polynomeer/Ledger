@@ -5,7 +5,7 @@ import java.awt.*;
 public class LedgerMain {
 
     static boolean isLoggedIn = false;
-
+    public static final Color BG_COLOR = new java.awt.Color(71, 120, 197);
     /**
      * @param args the command line arguments
      */

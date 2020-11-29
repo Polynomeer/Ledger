@@ -10,6 +10,8 @@ public class LogIn {
 
     private JFrame frame;
     private JPanel panel;
+    private JPanel panel1;
+    private JPanel panel2;
     private JLabel idLabel;
     private JLabel pwLabel;
     private JTextField txtID;
@@ -25,7 +27,12 @@ public class LogIn {
         frame.setBounds(100, 100, 450, 300);
         frame.setLocationRelativeTo(null);
 
+
+        frame.setLayout(new BorderLayout());
+
         panel = new JPanel();
+        panel1 = new JPanel();
+        panel2 = new JPanel();
         idLabel = new JLabel("ID");
         pwLabel = new JLabel("Password");
         txtID = new JTextField(10);
@@ -38,13 +45,19 @@ public class LogIn {
         pwLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         pwLabel.setForeground(new java.awt.Color(255, 255, 255));
 
-        panel.setBackground(new java.awt.Color(71, 120, 197));
-        panel.add(idLabel);
-        panel.add(txtID);
-        panel.add(pwLabel);
-        panel.add(txtPass);
-        panel.add(loginBtn);
-        panel.add(signBtn);
+        panel1.setBackground(LedgerMain.BG_COLOR);
+        panel1.add(idLabel);
+        panel1.add(txtID);
+        panel1.add(pwLabel);
+        panel1.add(txtPass);
+
+        panel2.setBackground(LedgerMain.BG_COLOR);
+        panel2.add(loginBtn);
+        panel2.add(signBtn);
+
+        panel.setBackground(LedgerMain.BG_COLOR);
+        panel.add(panel1, BorderLayout.CENTER);
+        panel.add(panel2, BorderLayout.SOUTH);
 
         addActionListeners();
 

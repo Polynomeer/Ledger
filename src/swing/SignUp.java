@@ -2,8 +2,6 @@ package swing;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SignUp extends JDialog {
     public SignUp(Window parent, JTextField textField) {
@@ -154,20 +152,11 @@ public class SignUp extends JDialog {
         add(txtAge);
         add(paButton);
 
-        btnSubmit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnSubmit.addActionListener(e -> {
 //                label.setText(field.getText());
-                System.out.println("button submit clicked.");
-                dispose();
-            }
+            dispose();
         });
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        btnCancel.addActionListener(e -> dispose());
     }
 
     JPanel paButton, panGen, panHobby;

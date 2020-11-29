@@ -61,9 +61,9 @@ class Home extends javax.swing.JFrame {
         jTable1 = new JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(LedgerMain.BG_COLOR);
         setLocationByPlatform(true);
-        setUndecorated(true);
+//        setUndecorated(true); // remove title bar
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         side_pane.setBackground(new java.awt.Color(23, 35, 51));

@@ -16,12 +16,15 @@ public class LogIn extends JFrame {
     private JButton signBtn;
 
     public LogIn() {
+
         setTitle("Ledger Log In");
         setResizable(false);
         setSize(600, 400);
         setBounds(100, 100, 450, 300);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+        setBackground(LedgerMain.BG_COLOR);
+//        getContentPane().setBackground(LedgerMain.BG_COLOR); // does not work, just blinking for a moment
 
         panel = new JPanel();
         panel1 = new JPanel();
@@ -39,18 +42,20 @@ public class LogIn extends JFrame {
         pwLabel.setForeground(new java.awt.Color(255, 255, 255));
 
         panel1.setBackground(LedgerMain.BG_COLOR);
-        panel1.add(idLabel);
-        panel1.add(txtID);
-        panel1.add(pwLabel);
-        panel1.add(txtPass);
+        panel1.add(idLabel, BorderLayout.NORTH);
+        panel1.add(txtID, BorderLayout.NORTH);
+        panel1.add(pwLabel, BorderLayout.SOUTH);
+        panel1.add(txtPass, BorderLayout.SOUTH);
 
         panel2.setBackground(LedgerMain.BG_COLOR);
-        panel2.add(loginBtn);
-        panel2.add(signBtn);
+        panel2.add(loginBtn, BorderLayout.NORTH);
+        panel2.add(signBtn, BorderLayout.SOUTH);
 
         panel.setBackground(LedgerMain.BG_COLOR);
         panel.add(panel1, BorderLayout.CENTER);
         panel.add(panel2, BorderLayout.SOUTH);
+        panel.add(panel1);
+        panel.add(panel2);
 
         addActionListeners();
 

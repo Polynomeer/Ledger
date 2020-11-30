@@ -63,8 +63,9 @@ public class LogIn extends JFrame {
 //        getContentPane().setLayout(null);
 //        getContentPane().add(panel);
         add(panel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     private void addActionListeners() {

@@ -59,6 +59,7 @@ public class LogIn extends JFrame {
 
         addActionListeners();
 
+        getRootPane().setDefaultButton(loginBtn);
 //        getContentPane().setLayout(null);
 //        getContentPane().add(panel);
         add(panel);
@@ -104,4 +105,5 @@ public class LogIn extends JFrame {
 
         return isCorrect;
     }
+
 }

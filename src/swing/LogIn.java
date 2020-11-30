@@ -70,14 +70,14 @@ public class LogIn extends JFrame {
 
     private void addActionListeners() {
         loginBtn.addActionListener(e -> {
-            String id = "jacob";
+            String id = "august";
 
             if (id.equals(txtID.getText()) && isPasswordCorrect(txtPass.getPassword())) {
                 JOptionPane.showMessageDialog(null, "You have logged in successfully");
 
                 setVisible(false);
                 /* Create and display the form */
-                EventQueue.invokeLater(() -> new Home().setVisible(true));
+                EventQueue.invokeLater(() -> new Home(id).setVisible(true));
 
             } else {
                 JOptionPane.showMessageDialog(null, "Failed to login..");

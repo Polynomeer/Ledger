@@ -14,11 +14,13 @@ import javax.swing.*;
  * @author Admin
  */
 class Home extends javax.swing.JFrame {
-
+    String username;
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home(String username) {
+        this.username = username;
+        setTitle(username + "'s Ledger");
         initComponents();
         setColor(btn.get(0));
         ind.get(0).setOpaque(true);
@@ -41,15 +43,15 @@ class Home extends javax.swing.JFrame {
             btn.add(new JPanel());
         }
         jLabel = new ArrayList<>();
-        for (int i=0;i<17;i++){
+        for (int i = 0; i < 17; i++) {
             jLabel.add(new JLabel());
         }
         ind = new ArrayList<>();
-        for (int i=0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
             ind.add(new JPanel());
         }
         jPanel = new ArrayList<>();
-        for (int i=0;i<6;i++){
+        for (int i = 0; i < 6; i++) {
             jPanel.add(new JPanel());
         }
         jTextField1 = new JTextField();
@@ -389,7 +391,7 @@ class Home extends javax.swing.JFrame {
 
         jLabel.get(11).setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel.get(11).setForeground(new java.awt.Color(255, 255, 255));
-        jLabel.get(11).setText("August");
+        jLabel.get(11).setText(username);
         jPanel.get(2).add(jLabel.get(11), new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, 30));
 
         jLabel.get(5).setFont(new java.awt.Font("Segoe UI", 0, 52)); // NOI18N
@@ -457,7 +459,8 @@ class Home extends javax.swing.JFrame {
 
         jPanel.get(4).setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel.get(5).setBackground(new java.awt.Color(242, 247, 247));
+//        jPanel.get(5).setBackground(new java.awt.Color(242, 247, 247));
+        jPanel.get(5).setBackground(new java.awt.Color(230, 230, 240));
 
         jLabel.get(13).setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel.get(13).setForeground(new java.awt.Color(102, 102, 102));
@@ -485,24 +488,33 @@ class Home extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {"12/1/2018", "Expresso POS", "Kenya", null},
-                        {"12/1/2018", "ROM Gen", "US", null},
-                        {"12/1/2018", "Text Ed", "UK", null},
-                        {"12/1/2018", "Mola Con", "China", null}
+                        {"2020-11-11", "Food", "Pizza", "Seoul", 0, 8000, null},
+                        {"2020-11-24", "Beverage", "Coffee", "Seoul", 0, 5000, null},
+                        {"2020-11-30", "Public", "Mobile Phone fee", "Seoul", 0, 2000000, null},
+                        {"2020-11-30", "Financial", "Insurance premium", "Seoul", 0, 300000, null},
+                        {"2020-11-25", "Service", "Mac A/S", "Seoul", 0, 12000, null},
+                        {"2020-11-30", "Medical", "Dental care", "Dongtan", 0, 45000, null},
+                        {"2020-11-30", "Income", "Nov salary", "Seoul", 10000000, 0, null},
+                        {"2020-12-01", "Clothes", "A.P.C shirt", "Daegu", 0, 185000, null},
+                        {"2020-12-07", "Hobby", "Steam game", "Daegu", 0, 36000, null},
+                        {"2020-12-12", "Business", "Meeting expenses", "Busan", 0, 12000, null},
+                        {"2020-12-17", "Study", "Online study", "Daegu", 0, 330000, null},
+                        {"2020-12-24", "Vehicle", "Fuel", "Busan", 0, 60000, null},
+                        {"2020-12-24", "Etc", "Lost wallet", "Busan", 0, 100000, null}
                 },
                 new String[]{
-                        "Date", "Item", "Location", "Completed"
+                        "Date", "Sort", "Item", "Location", "Revenue", "Expenditure", "Completed"
                 }
         ) {
             Class[] types = new Class[]{
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                    String.class, String.class, String.class, String.class, Integer.class, Integer.class, Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setGridColor(new java.awt.Color(230, 230, 240));
         jTable1.setRowHeight(22);
         jScrollPane1.setViewportView(jTable1);
 
@@ -574,7 +586,8 @@ class Home extends javax.swing.JFrame {
         //source to drag
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x - xx, y - xy);
+//        this.setLocation(x - xx, y - xy);
+        this.setLocation(x, y);
     }//GEN-LAST:event_jPanel2MouseDragged
 
     private void btn_exitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitMousePressed
@@ -600,13 +613,13 @@ class Home extends javax.swing.JFrame {
         }
 
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private List<JPanel> btn;
     private List<JPanel> ind;
     private List<JLabel> jLabel;
     private List<JPanel> jPanel;
-    
+
     private JLabel btn_exit;
     private java.awt.Button button1;
 

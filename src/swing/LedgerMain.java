@@ -38,7 +38,6 @@ public class LedgerMain {
             public void run() {
                 try {
                     new LogIn();
-                    new LedgerMap();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

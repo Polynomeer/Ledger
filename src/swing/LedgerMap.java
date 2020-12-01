@@ -50,15 +50,18 @@ public class LedgerMap extends JFrame {
         pack();
     }
 
-    public LedgerMap() {
+    public LedgerMap(Window parent) {
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         setTitle("Ledger Map");
         setVisible(true);
 
         panel.add(textField);
         panel.add(button);
+        setMap("Seoul");
+
         button.addMouseListener(new Event());
 
         add(BorderLayout.NORTH, panel);

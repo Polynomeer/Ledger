@@ -15,6 +15,7 @@ import javax.swing.*;
  */
 class Home extends javax.swing.JFrame {
     String username;
+
     /**
      * Creates new form Home
      */
@@ -320,7 +321,12 @@ class Home extends javax.swing.JFrame {
         jLabel.get(2).setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Calendar_25px.png"))); // NOI18N
 
         jLabel.get(3).setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Lock_25px.png"))); // NOI18N
-
+        jLabel.get(3).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LedgerMap ledgerMap = new LedgerMap(Home.this);
+                ledgerMap.setVisible(true);
+            }
+        });
         jProgressBar1.setBackground(new java.awt.Color(84, 127, 206));
         jProgressBar1.setForeground(new java.awt.Color(0, 204, 204));
         jProgressBar1.setPreferredSize(new java.awt.Dimension(146, 10));
@@ -542,27 +548,14 @@ class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Home Tab
     private void btn_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1MousePressed
         // TODO add your handling code here:
         setColor(btn.get(0));
         ind.get(0).setOpaque(true);
         resetColor(new JPanel[]{btn.get(1), btn.get(2), btn.get(3)}, new JPanel[]{ind.get(1), ind.get(2), ind.get(3)});
+
     }//GEN-LAST:event_btn_1MousePressed
-
-    private void btn_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3MousePressed
-        // TODO add your handling code here:
-        setColor(btn.get(2));
-        ind.get(2).setOpaque(true);
-        resetColor(new JPanel[]{btn.get(1), btn.get(0), btn.get(3)}, new JPanel[]{ind.get(1), ind.get(0), ind.get(3)});
-    }//GEN-LAST:event_btn_3MousePressed
-
-    private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
-        // TODO add your handling code here:
-        setColor(btn.get(3));
-        ind.get(3).setOpaque(true);
-        resetColor(new JPanel[]{btn.get(1), btn.get(2), btn.get(0)}, new JPanel[]{ind.get(1), ind.get(2), ind.get(0)});
-    }//GEN-LAST:event_btn_4MousePressed
 
     private void btn_2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2MouseReleased
         // TODO add your handling code here:
@@ -571,13 +564,27 @@ class Home extends javax.swing.JFrame {
         resetColor(new JPanel[]{btn.get(0), btn.get(2), btn.get(3)}, new JPanel[]{ind.get(0), ind.get(2), ind.get(3)});
     }//GEN-LAST:event_btn_2MouseReleased
 
-    int xx, xy;
+    private void btn_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3MousePressed
+        // TODO add your handling code here:
+        setColor(btn.get(2));
+        ind.get(2).setOpaque(true);
+        resetColor(new JPanel[]{btn.get(1), btn.get(0), btn.get(3)}, new JPanel[]{ind.get(1), ind.get(0), ind.get(3)});
+    }//GEN-LAST:event_btn_3MousePressed
+    // Profile Tab
+    private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
+        // TODO add your handling code here:
+        setColor(btn.get(3));
+        ind.get(3).setOpaque(true);
+        resetColor(new JPanel[]{btn.get(1), btn.get(2), btn.get(0)}, new JPanel[]{ind.get(1), ind.get(2), ind.get(0)});
+    }//GEN-LAST:event_btn_4MousePressed
 
+    int xx, xy;
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
         // TODO add your handling code here:
         //drag this pane
         xx = evt.getX();
         xy = evt.getY();
+
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
@@ -597,7 +604,6 @@ class Home extends javax.swing.JFrame {
         new LogIn();
 //        System.exit(0);
     }//GEN-LAST:event_btn_exitMousePressed
-
 
     private void setColor(JPanel pane) {
         pane.setBackground(new Color(41, 57, 80));

@@ -6,9 +6,11 @@
 package swing;
 
 import java.awt.Color;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Admin
@@ -60,6 +62,8 @@ class Home extends javax.swing.JFrame {
         jProgressBar1 = new JProgressBar();
         btn_exit = new JLabel();
         button1 = new java.awt.Button();
+        insertBtn = new JButton();
+        deleteBtn = new JButton();
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
 
@@ -409,6 +413,16 @@ class Home extends javax.swing.JFrame {
         button1.setForeground(new java.awt.Color(0, 0, 0));
         button1.setLabel("Book");
 
+        insertBtn.setBackground(new java.awt.Color(71, 120, 197));
+        insertBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        insertBtn.setForeground(new java.awt.Color(0, 0, 0));
+        insertBtn.setLabel("+");
+
+        deleteBtn.setBackground(new java.awt.Color(71, 120, 197));
+        deleteBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(0, 0, 0));
+        deleteBtn.setLabel("-");
+
         jLabel.get(12).setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel.get(12).setForeground(new java.awt.Color(255, 255, 255));
         jLabel.get(12).setText("May 2018");
@@ -494,26 +508,26 @@ class Home extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {"2020-11-11", "Food", "Pizza", "Seoul", 0, 8000, null},
-                        {"2020-11-24", "Beverage", "Coffee", "Seoul", 0, 5000, null},
-                        {"2020-11-30", "Public", "Mobile Phone fee", "Seoul", 0, 2000000, null},
-                        {"2020-11-30", "Financial", "Insurance premium", "Seoul", 0, 300000, null},
-                        {"2020-11-25", "Service", "Mac A/S", "Seoul", 0, 12000, null},
-                        {"2020-11-30", "Medical", "Dental care", "Dongtan", 0, 45000, null},
-                        {"2020-11-30", "Income", "Nov salary", "Seoul", 10000000, 0, null},
-                        {"2020-12-01", "Clothes", "A.P.C shirt", "Daegu", 0, 185000, null},
-                        {"2020-12-07", "Hobby", "Steam game", "Daegu", 0, 36000, null},
-                        {"2020-12-12", "Business", "Meeting expenses", "Busan", 0, 12000, null},
-                        {"2020-12-17", "Study", "Online study", "Daegu", 0, 330000, null},
-                        {"2020-12-24", "Vehicle", "Fuel", "Busan", 0, 60000, null},
-                        {"2020-12-24", "Etc", "Lost wallet", "Busan", 0, 100000, null}
+                        {"2020-11-11", "Food", "Pizza", "Seoul", 0, 8000, 0},
+                        {"2020-11-24", "Beverage", "Coffee", "Seoul", 0, 5000, 0},
+                        {"2020-11-30", "Public", "Mobile Phone fee", "Seoul", 0, 2000000, 0},
+                        {"2020-11-30", "Financial", "Insurance premium", "Seoul", 0, 300000, 0},
+                        {"2020-11-25", "Service", "Mac A/S", "Seoul", 0, 12000, 0},
+                        {"2020-11-30", "Medical", "Dental care", "Dongtan", 0, 45000, 0},
+                        {"2020-11-30", "Income", "Nov salary", "Seoul", 10000000, 0, 0},
+                        {"2020-12-01", "Clothes", "A.P.C shirt", "Daegu", 0, 185000, 0},
+                        {"2020-12-07", "Hobby", "Steam game", "Daegu", 0, 36000, 0},
+                        {"2020-12-12", "Business", "Meeting expenses", "Busan", 0, 12000, 0},
+                        {"2020-12-17", "Study", "Online study", "Daegu", 0, 330000, 0},
+                        {"2020-12-24", "Vehicle", "Fuel", "Busan", 0, 60000, 0},
+                        {"2020-12-24", "Etc", "Lost wallet", "Busan", 0, 100000, 0}
                 },
                 new String[]{
-                        "Date", "Sort", "Item", "Location", "Revenue", "Expenditure", "Completed"
+                        "Date", "Type", "Item", "Location", "Credit", "Debit", "Balance"
                 }
         ) {
             Class[] types = new Class[]{
-                    String.class, String.class, String.class, String.class, Integer.class, Integer.class, Boolean.class
+                    String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -555,6 +569,21 @@ class Home extends javax.swing.JFrame {
         ind.get(0).setOpaque(true);
         resetColor(new JPanel[]{btn.get(1), btn.get(2), btn.get(3)}, new JPanel[]{ind.get(1), ind.get(2), ind.get(3)});
 
+        try{
+            Connection conn = this.connect();
+            PreparedStatement ps = conn.prepareStatement("Select * from ledger");
+            ResultSet rs=ps.executeQuery();
+            DefaultTableModel tm = (DefaultTableModel)jTable1.getModel();
+            tm.setRowCount(0);
+
+            while(rs.next()){
+                Object o[] = {rs.getDate("date"),rs.getString("type"),rs.getString("item"),rs.getString("location"),rs.getInt("credit"),rs.getInt("debit"),rs.getInt("balance")};
+                tm.addRow(o);
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error in Employee Grid View..... "+e);
+        }
     }//GEN-LAST:event_btn_1MousePressed
 
     private void btn_2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2MouseReleased
@@ -620,6 +649,18 @@ class Home extends javax.swing.JFrame {
 
     }
 
+    private Connection connect(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/ledger_db?serverTimezone=UTC";
+            Connection conn = DriverManager.getConnection(url, "root","password");
+            return conn;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private List<JPanel> btn;
     private List<JPanel> ind;
@@ -628,6 +669,8 @@ class Home extends javax.swing.JFrame {
 
     private JLabel btn_exit;
     private java.awt.Button button1;
+    private JButton insertBtn;
+    private JButton deleteBtn;
 
     private JProgressBar jProgressBar1;
     private JScrollPane jScrollPane1;

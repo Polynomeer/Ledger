@@ -1,7 +1,11 @@
 package swing;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class SignUp extends JDialog {
     public SignUp(Window parent, JTextField textField) {
@@ -154,9 +158,15 @@ public class SignUp extends JDialog {
 
         btnSubmit.addActionListener(e -> {
 //                label.setText(field.getText());
+
             dispose();
         });
         btnCancel.addActionListener(e -> dispose());
+    }
+
+    private void getRecord(){
+
+
     }
 
     JPanel paButton, panGen, panHobby;

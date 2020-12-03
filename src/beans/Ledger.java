@@ -31,79 +31,40 @@ public class Ledger {
         return lid;
     }
 
-    public void setLid(int lid) {
-        this.lid = lid;
-    }
-
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getMethod() {
         return method;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getItem() {
         return item;
     }
 
-    public void setItem(String item) {
-        this.item = item;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public int getCredit() {
         return credit;
-    }
-
-    public void setCredit(int credit) {
-        this.credit = credit;
     }
 
     public int getDebit() {
         return debit;
     }
 
-    public void setDebit(int debit) {
-        this.debit = debit;
-    }
-
     public int getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
 }

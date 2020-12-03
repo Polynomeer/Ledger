@@ -633,10 +633,9 @@ class Home extends javax.swing.JFrame {
 
     }
 
-
     private void setJTable() {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid());
             ResultSet rs = ps.executeQuery();
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
             tm.setRowCount(0);

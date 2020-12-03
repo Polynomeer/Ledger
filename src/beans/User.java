@@ -12,8 +12,7 @@ public class User {
     private String address;
     private int age;
 
-    public User(int uid, String id, String password, String name, String phone, char gender, String job, String hobby, String address, int age) {
-        this.uid = uid;
+    public User(String id, String password, String name, String phone, char gender, String job, String hobby, String address, int age) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -23,6 +22,11 @@ public class User {
         this.hobby = hobby;
         this.address = address;
         this.age = age;
+    }
+
+    public User(int uid, String id, String password, String name, String phone, char gender, String job, String hobby, String address, int age) {
+        this(id, password, name, phone, gender, job, hobby, address, age);
+        this.uid = uid;
     }
 
     public int getUid() {

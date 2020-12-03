@@ -1,16 +1,17 @@
 package swing;
 
+import beans.User;
 import service.Connector;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class SignUp extends JDialog {
     Connection connection;
+    private String gender;
+    private String hobby;
+    private String job;
 
     public SignUp(Window parent, JTextField textField) {
         super(parent, "Sign Up", ModalityType.APPLICATION_MODAL);
@@ -166,15 +167,41 @@ public class SignUp extends JDialog {
 
         btnSubmit.addActionListener(e -> {
 //                label.setText(field.getText());
+            boolean isInserted = insertUser();
+            if (isInserted) {
+                dispose();
+            }
 
-            dispose();
         });
         btnCancel.addActionListener(e -> dispose());
     }
 
-    private void getRecord(){
+    private boolean insertUser() {
 
+        try {
+            User user;
+            String id = txtId.getText();
+            String password = txtPwd.getText();
+            String name = txtName.getText();
+            String phone = txtHp1.getText() + "-" + txtHp2.getText() + "-" + txtHp3.getText();
+//            String gender = lblGen.getText();
+//            String job = lblJob.getText();
+//            String hobby = lblHobby.getText();
+            String gender = "F";
+            String job = "Programmer";
+            String hobby = "Soccer";
+            String address = txtAddr.getText();
+            int age = Integer.parseInt(txtAge.getText());
 
+            user = new User(id, password, name, phone, gender.charAt(0), job, hobby, address, age);
+            System.out.println(user);
+            return true;
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error in signing up: " + e);
+        }
+
+        return false;
     }
 
     JPanel paButton, panGen, panHobby;

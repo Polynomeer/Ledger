@@ -92,10 +92,10 @@ public class LogIn extends JFrame {
                     EventQueue.invokeLater(() -> new Home(user).setVisible(true));
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Failed to login..");
+                    JOptionPane.showMessageDialog(null, "Failed to login: Wrong password");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "It is invalid id!!!");
+                JOptionPane.showMessageDialog(null, "Failed to login: Invalid id");
             }
         });
 
@@ -138,7 +138,7 @@ public class LogIn extends JFrame {
 
     private boolean isPasswordCorrect(char[] input) {
         boolean isCorrect = true;
-        char[] correctPassword = {'1', '2', '3', '4'};
+        char[] correctPassword = user.getPassword().toCharArray();
 
         if (input.length != correctPassword.length) {
             isCorrect = false;

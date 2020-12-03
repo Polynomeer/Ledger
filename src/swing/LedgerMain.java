@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class LedgerMain {
 
-    static boolean isLoggedIn = false;
     public static final Color BG_COLOR = new java.awt.Color(71, 120, 197);
     public static final Font BASIC_FONT = new java.awt.Font("Segoe UI", 0, 12);
 

@@ -511,14 +511,14 @@ public class Home extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {"2020-11-11", "Card", "Food", "Pizza", "Seoul", 0, 8000, 0},
+                        {"2020-11-11", "Card", "Food", "Pizza", "Seoul", 0, 8000, 0, false},
                 },
                 new String[]{
-                        "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance"
+                        "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance", "Selected"
                 }
         ) {
             Class[] types = new Class[]{
-                    String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
+                    String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -705,7 +705,7 @@ public class Home extends javax.swing.JFrame {
             tm.setRowCount(0);
 
             while (rs.next()) {
-                Object o[] = {rs.getDate("date"), rs.getString("method"), rs.getString("type"), rs.getString("item"), rs.getString("location"), rs.getInt("credit"), rs.getInt("debit"), rs.getInt("balance")};
+                Object o[] = {rs.getDate("date"), rs.getString("method"), rs.getString("type"), rs.getString("item"), rs.getString("location"), rs.getInt("credit"), rs.getInt("debit"), rs.getInt("balance"), false};
                 tm.addRow(o);
             }
         } catch (Exception e) {

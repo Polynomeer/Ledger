@@ -5,6 +5,8 @@
  */
 package swing;
 
+import service.Connector;
+
 import java.awt.Color;
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,14 +18,19 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 class Home extends javax.swing.JFrame {
+    Connection connection;
     String username;
 
     /**
      * Creates new form Home
      */
     public Home(String username) {
+        Connector connector = new Connector();
+        connection = connector.connect();
+
         this.username = username;
         setTitle(username + "'s Ledger");
+
         initComponents();
         setColor(btn.get(0));
         ind.get(0).setOpaque(true);
@@ -536,6 +543,7 @@ class Home extends javax.swing.JFrame {
         });
         jTable1.setGridColor(new java.awt.Color(230, 230, 240));
         jTable1.setRowHeight(22);
+        setJTable();
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel.get(4));
@@ -568,22 +576,6 @@ class Home extends javax.swing.JFrame {
         setColor(btn.get(0));
         ind.get(0).setOpaque(true);
         resetColor(new JPanel[]{btn.get(1), btn.get(2), btn.get(3)}, new JPanel[]{ind.get(1), ind.get(2), ind.get(3)});
-
-        try{
-            Connection conn = this.connect();
-            PreparedStatement ps = conn.prepareStatement("Select * from ledger");
-            ResultSet rs=ps.executeQuery();
-            DefaultTableModel tm = (DefaultTableModel)jTable1.getModel();
-            tm.setRowCount(0);
-
-            while(rs.next()){
-                Object o[] = {rs.getDate("date"),rs.getString("type"),rs.getString("item"),rs.getString("location"),rs.getInt("credit"),rs.getInt("debit"),rs.getInt("balance")};
-                tm.addRow(o);
-            }
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Error in Employee Grid View..... "+e);
-        }
     }//GEN-LAST:event_btn_1MousePressed
 
     private void btn_2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2MouseReleased
@@ -649,16 +641,23 @@ class Home extends javax.swing.JFrame {
 
     }
 
-    private Connection connect(){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/ledger_db?serverTimezone=UTC";
-            Connection conn = DriverManager.getConnection(url, "root","password");
-            return conn;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+
+
+    private void setJTable(){
+        try{
+            PreparedStatement ps = connection.prepareStatement("Select * from ledger");
+            ResultSet rs=ps.executeQuery();
+            DefaultTableModel tm = (DefaultTableModel)jTable1.getModel();
+            tm.setRowCount(0);
+
+            while(rs.next()){
+                Object o[] = {rs.getDate("date"),rs.getString("type"),rs.getString("item"),rs.getString("location"),rs.getInt("credit"),rs.getInt("debit"),rs.getInt("balance")};
+                tm.addRow(o);
+            }
         }
-        return null;
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error in Employee Grid View..... "+e);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

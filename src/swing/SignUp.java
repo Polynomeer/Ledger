@@ -4,8 +4,11 @@ import beans.User;
 import service.Connector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class SignUp extends JDialog {
     Connection connection;
@@ -194,11 +197,27 @@ public class SignUp extends JDialog {
             int age = Integer.parseInt(txtAge.getText());
 
             user = new User(id, password, name, phone, gender.charAt(0), job, hobby, address, age);
-            System.out.println(user);
+
+            try {
+                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO user (id, password, name, phone, gender, job, hobby, address, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                pstmt.setString(1, id);
+                pstmt.setString(2, password);
+                pstmt.setString(3, name);
+                pstmt.setString(4, phone);
+                pstmt.setString(5, gender);
+                pstmt.setString(6, job);
+                pstmt.setString(7, hobby);
+                pstmt.setString(8, address);
+                pstmt.setInt(9, age);
+                pstmt.executeUpdate();
+                System.out.println("Insert success!!!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error in JTable ..... " + e);
+            }
             return true;
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error in signing up: " + e);
+        } catch (NumberFormatException numberFormatException) {
+            JOptionPane.showMessageDialog(null, "Error in signing up: " + numberFormatException);
         }
 
         return false;

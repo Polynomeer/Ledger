@@ -535,6 +535,11 @@ public class Home extends javax.swing.JFrame {
         jLabel18.setText("This Month");
 
         jButton1.setText("Insert");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Delete");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -655,16 +660,26 @@ public class Home extends javax.swing.JFrame {
         new LogIn();
     }
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Insert button clicked!");
+    }
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
+        JOptionPane.showMessageDialog(null, "Delete button clicked!");
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
+        JOptionPane.showMessageDialog(null, "Modify button clicked!");
     }
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Book button clicked!");
     }
 
     private void setColor(JPanel pane) {

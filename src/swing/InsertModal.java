@@ -10,12 +10,15 @@ import java.sql.PreparedStatement;
 
 public class InsertModal extends JDialog {
     Connection connection;
+    User user;
 
-    public InsertModal(Window parent) {
+    public InsertModal(Window parent, User user) {
         super(parent, "Sign Up", ModalityType.APPLICATION_MODAL);
 
         Connector connector = new Connector();
         connection = connector.connect();
+
+        this.user = user;
 
         setSize(400, 400);
         setResizable(false);

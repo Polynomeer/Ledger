@@ -1,10 +1,20 @@
 package swing;
 
+import beans.User;
+import service.Connector;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Arrays;
 
 public class LogIn extends JFrame {
+    private Connection connection;
+    private User user;
+
     private JPanel panel;
     private JPanel panel1;
     private JPanel panel2;
@@ -16,6 +26,8 @@ public class LogIn extends JFrame {
     private JButton signBtn;
 
     public LogIn() {
+        Connector connector = new Connector();
+        connection = connector.connect();
 
         setTitle("Ledger Log In");
         setResizable(false);
@@ -70,17 +82,20 @@ public class LogIn extends JFrame {
 
     private void addActionListeners() {
         loginBtn.addActionListener(e -> {
-            String id = "august";
 
-            if (id.equals(txtID.getText()) && isPasswordCorrect(txtPass.getPassword())) {
-                JOptionPane.showMessageDialog(null, "You have logged in successfully");
+            if (checkIdValid()) {
+                if (isPasswordCorrect(txtPass.getPassword())) {
+                    JOptionPane.showMessageDialog(null, "You have logged in successfully");
 
-                setVisible(false);
-                /* Create and display the form */
-                EventQueue.invokeLater(() -> new Home(id).setVisible(true));
+                    setVisible(false);
+                    /* Create and display the form */
+                    EventQueue.invokeLater(() -> new Home(user).setVisible(true));
 
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to login..");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Failed to login..");
+                JOptionPane.showMessageDialog(null, "It is invalid id!!!");
             }
         });
 
@@ -91,7 +106,37 @@ public class LogIn extends JFrame {
 
     }
 
-    private static boolean isPasswordCorrect(char[] input) {
+    private boolean checkIdValid() {
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger_db.user WHERE ledger_db.user.id = '" + txtID.getText() + "'");
+            ResultSet rs = ps.executeQuery();
+
+            if (rs == null) {
+                return false;
+            }
+            while (rs.next()) {
+                int uid = rs.getInt("uid");
+                String id = rs.getString("id");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                char gender = rs.getString("gender").charAt(0);
+                String job = rs.getString("job");
+                String hobby = rs.getString("hobby");
+                String address = rs.getString("address");
+                int age = rs.getInt("age");
+                user = new User(uid, id, password, name, phone, gender, job, hobby, address, age);
+            }
+            System.out.println(user);
+            return true;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error in Login ..... " + e);
+        }
+        return false;
+    }
+
+    private boolean isPasswordCorrect(char[] input) {
         boolean isCorrect = true;
         char[] correctPassword = {'1', '2', '3', '4'};
 

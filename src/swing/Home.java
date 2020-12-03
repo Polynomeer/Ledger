@@ -5,6 +5,7 @@
  */
 package swing;
 
+import beans.User;
 import service.Connector;
 
 import java.awt.Color;
@@ -19,17 +20,17 @@ import javax.swing.table.DefaultTableModel;
  */
 class Home extends javax.swing.JFrame {
     Connection connection;
-    String username;
+    User user;
 
     /**
      * Creates new form Home
      */
-    public Home(String username) {
+    public Home(User user) {
         Connector connector = new Connector();
         connection = connector.connect();
 
-        this.username = username;
-        setTitle(username + "'s Ledger");
+        this.user = user;
+        setTitle(user.getName() + "'s Ledger");
 
         initComponents();
         setColor(btn.get(0));
@@ -408,7 +409,7 @@ class Home extends javax.swing.JFrame {
 
         jLabel.get(11).setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel.get(11).setForeground(new java.awt.Color(255, 255, 255));
-        jLabel.get(11).setText(username);
+        jLabel.get(11).setText(user.getName());
         jPanel.get(2).add(jLabel.get(11), new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, 30));
 
         jLabel.get(5).setFont(new java.awt.Font("Segoe UI", 0, 52)); // NOI18N
@@ -570,6 +571,7 @@ class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     // Home Tab
     private void btn_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1MousePressed
         // TODO add your handling code here:
@@ -591,6 +593,7 @@ class Home extends javax.swing.JFrame {
         ind.get(2).setOpaque(true);
         resetColor(new JPanel[]{btn.get(1), btn.get(0), btn.get(3)}, new JPanel[]{ind.get(1), ind.get(0), ind.get(3)});
     }//GEN-LAST:event_btn_3MousePressed
+
     // Profile Tab
     private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
         // TODO add your handling code here:
@@ -600,6 +603,7 @@ class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_4MousePressed
 
     int xx, xy;
+
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
         // TODO add your handling code here:
         //drag this pane
@@ -642,21 +646,19 @@ class Home extends javax.swing.JFrame {
     }
 
 
-
-    private void setJTable(){
-        try{
+    private void setJTable() {
+        try {
             PreparedStatement ps = connection.prepareStatement("Select * from ledger");
-            ResultSet rs=ps.executeQuery();
-            DefaultTableModel tm = (DefaultTableModel)jTable1.getModel();
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
             tm.setRowCount(0);
 
-            while(rs.next()){
-                Object o[] = {rs.getDate("date"),rs.getString("type"),rs.getString("item"),rs.getString("location"),rs.getInt("credit"),rs.getInt("debit"),rs.getInt("balance")};
+            while (rs.next()) {
+                Object o[] = {rs.getDate("date"), rs.getString("type"), rs.getString("item"), rs.getString("location"), rs.getInt("credit"), rs.getInt("debit"), rs.getInt("balance")};
                 tm.addRow(o);
             }
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Error in Employee Grid View..... "+e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error in JTable ..... " + e);
         }
     }
 

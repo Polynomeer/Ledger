@@ -82,8 +82,9 @@ public class LogIn extends JFrame {
 
     private void addActionListeners() {
         loginBtn.addActionListener(e -> {
+            user = null;    // initialize user instance
 
-            if (checkIdValid()) {
+            if (checkIdValid() && user != null) {
                 if (isPasswordCorrect(txtPass.getPassword())) {
                     JOptionPane.showMessageDialog(null, "You have logged in successfully");
 

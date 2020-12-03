@@ -10,9 +10,6 @@ import java.sql.PreparedStatement;
 
 public class SignUp extends JDialog {
     Connection connection;
-    private String gender;
-    private String hobby;
-    private String job;
 
     public SignUp(Window parent, JTextField textField) {
         super(parent, "Sign Up", ModalityType.APPLICATION_MODAL);

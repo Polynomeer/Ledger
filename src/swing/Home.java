@@ -662,7 +662,9 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Insert button clicked!");
+//        JOptionPane.showMessageDialog(null, "Insert button clicked!");
+        InsertModal insertModal = new InsertModal(Home.this);
+        insertModal.setVisible(true);
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {

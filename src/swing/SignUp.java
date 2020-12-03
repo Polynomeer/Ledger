@@ -1,5 +1,7 @@
 package swing;
 
+import service.Connector;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -8,8 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class SignUp extends JDialog {
+    Connection connection;
+
     public SignUp(Window parent, JTextField textField) {
         super(parent, "Sign Up", ModalityType.APPLICATION_MODAL);
+
+        Connector connector = new Connector();
+        connection = connector.connect();
+
         setSize(400, 400);
         setResizable(false);
         getContentPane().setBackground(LedgerMain.BG_COLOR);

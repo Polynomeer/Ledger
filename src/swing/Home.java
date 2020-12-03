@@ -516,26 +516,14 @@ class Home extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {"2020-11-11", "Food", "Pizza", "Seoul", 0, 8000, 0},
-                        {"2020-11-24", "Beverage", "Coffee", "Seoul", 0, 5000, 0},
-                        {"2020-11-30", "Public", "Mobile Phone fee", "Seoul", 0, 2000000, 0},
-                        {"2020-11-30", "Financial", "Insurance premium", "Seoul", 0, 300000, 0},
-                        {"2020-11-25", "Service", "Mac A/S", "Seoul", 0, 12000, 0},
-                        {"2020-11-30", "Medical", "Dental care", "Dongtan", 0, 45000, 0},
-                        {"2020-11-30", "Income", "Nov salary", "Seoul", 10000000, 0, 0},
-                        {"2020-12-01", "Clothes", "A.P.C shirt", "Daegu", 0, 185000, 0},
-                        {"2020-12-07", "Hobby", "Steam game", "Daegu", 0, 36000, 0},
-                        {"2020-12-12", "Business", "Meeting expenses", "Busan", 0, 12000, 0},
-                        {"2020-12-17", "Study", "Online study", "Daegu", 0, 330000, 0},
-                        {"2020-12-24", "Vehicle", "Fuel", "Busan", 0, 60000, 0},
-                        {"2020-12-24", "Etc", "Lost wallet", "Busan", 0, 100000, 0}
+                        {"2020-11-11", "Card", "Food", "Pizza", "Seoul", 0, 8000, 0},
                 },
                 new String[]{
-                        "Date", "Type", "Item", "Location", "Credit", "Debit", "Balance"
+                        "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance"
                 }
         ) {
             Class[] types = new Class[]{
-                    String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
+                    String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -648,13 +636,13 @@ class Home extends javax.swing.JFrame {
 
     private void setJTable() {
         try {
-            PreparedStatement ps = connection.prepareStatement("Select * from ledger");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger");
             ResultSet rs = ps.executeQuery();
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
             tm.setRowCount(0);
 
             while (rs.next()) {
-                Object o[] = {rs.getDate("date"), rs.getString("type"), rs.getString("item"), rs.getString("location"), rs.getInt("credit"), rs.getInt("debit"), rs.getInt("balance")};
+                Object o[] = {rs.getDate("date"), rs.getString("method"), rs.getString("type"), rs.getString("item"), rs.getString("location"), rs.getInt("credit"), rs.getInt("debit"), rs.getInt("balance")};
                 tm.addRow(o);
             }
         } catch (Exception e) {

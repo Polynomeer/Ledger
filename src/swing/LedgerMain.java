@@ -1,5 +1,6 @@
 package swing;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class LedgerMain {
@@ -7,6 +8,7 @@ public class LedgerMain {
     static boolean isLoggedIn = false;
     public static final Color BG_COLOR = new java.awt.Color(71, 120, 197);
     public static final Font BASIC_FONT = new java.awt.Font("Segoe UI", 0, 12);
+
     /**
      * @param args the command line arguments
      */
@@ -39,7 +41,8 @@ public class LedgerMain {
                 try {
                     new LogIn();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error in LedgerMain ..... " + e);
+                    System.exit(1);
                 }
             }
         });

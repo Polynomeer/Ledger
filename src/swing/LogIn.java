@@ -108,7 +108,7 @@ public class LogIn extends JFrame {
 
     private boolean checkIdValid() {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger_db.user WHERE ledger_db.user.id = '" + txtID.getText() + "'");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE user.id = '" + txtID.getText() + "'");
             ResultSet rs = ps.executeQuery();
 
             if (rs == null) {

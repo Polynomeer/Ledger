@@ -514,7 +514,7 @@ public class Home extends javax.swing.JFrame {
                         {"2020-11-11", "Card", "Food", "Pizza", "Seoul", 0, 8000, 0, false},
                 },
                 new String[]{
-                        "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance", "Selected"
+                        "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance", "Select"
                 }
         ) {
             Class[] types = new Class[]{
@@ -531,6 +531,13 @@ public class Home extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel17.setText("Summary");
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(90);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(40);
+        }
 
         jLabel18.setText("This Month");
 

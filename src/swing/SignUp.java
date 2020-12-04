@@ -165,7 +165,6 @@ public class SignUp extends JDialog {
                 pstmt.setString(8, address);
                 pstmt.setInt(9, age);
                 pstmt.executeUpdate();
-                System.out.println("Insert Success!");
                 return true;
 
             } catch (Exception e) {

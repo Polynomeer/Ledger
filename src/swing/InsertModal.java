@@ -13,7 +13,7 @@ public class InsertModal extends JDialog {
     User user;
 
     public InsertModal(Window parent, User user) {
-        super(parent, "Sign Up", ModalityType.APPLICATION_MODAL);
+        super(parent, "Ledger Insert", ModalityType.APPLICATION_MODAL);
 
         Connector connector = new Connector();
         connection = connector.connect();
@@ -82,8 +82,6 @@ public class InsertModal extends JDialog {
 
         btnCancel = new JButton("Cancel");
         btnSubmit = new JButton("Insert");
-        //btnCancel.setSize(150, 40);
-        //btnSubmit.setSize(150, 40);
 
         txtDate.setBounds(120, 50, 150, 20);
         txtMethod.setBounds(120, 80, 150, 20);
@@ -111,47 +109,46 @@ public class InsertModal extends JDialog {
         add(paButton);
 
         btnSubmit.addActionListener(e -> {
-//                label.setText(field.getText());
-//            boolean isInserted = insertUser();
-//            if (isInserted) {
-//                dispose();
-//            }
+            boolean isInserted = insertLedger();
+            if (isInserted) {
+                JOptionPane.showMessageDialog(null, "Ledger insert completed!");
+                dispose();
+            }
 
         });
         btnCancel.addActionListener(e -> dispose());
     }
 
-  /*  private boolean insertUser() {
+    private boolean insertLedger() {
 
         try {
-            User user;
-            String id = txtId.getText();
-            String password = txtPwd.getText();
-            String name = txtName.getText();
-            String phone = txtHp1.getText() + "-" + txtHp2.getText() + "-" + txtHp3.getText();
-            String gender = "F";
-            String job = "Programmer";
-            String hobby = "Soccer";
-            String address = txtAddr.getText();
-            int age = Integer.parseInt(txtAge.getText());
-
-            user = new User(id, password, name, phone, gender.charAt(0), job, hobby, address, age);
-
+            int uid = user.getUid();
+            String date = txtDate.getText();
+            String method = txtMethod.getText();
+            String type = txtType.getText();
+            String item = txtItem.getText();
+            String description = txtDescription.getText();
+            description = description.equals("") ? null : description;
+            String location = txtLocation.getText();
+            int credit = Integer.parseInt(txtCredit.getText());
+            int debit = Integer.parseInt(txtDebit.getText());
+            int balance = 0;
+            // TODO: get ledgers matched uid order by date, and add last record's balance += credit - debit
             try {
-                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO user (id, password, name, phone, gender, job, hobby, address, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                pstmt.setString(1, id);
-                pstmt.setString(2, password);
-                pstmt.setString(3, name);
-                pstmt.setString(4, phone);
-                pstmt.setString(5, gender);
-                pstmt.setString(6, job);
-                pstmt.setString(7, hobby);
-                pstmt.setString(8, address);
-                pstmt.setInt(9, age);
+                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO ledger (uid, date, method, type, item, description, location, credit, debit, balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                pstmt.setInt(1, uid);
+                pstmt.setString(2, date);
+                pstmt.setString(3, method);
+                pstmt.setString(4, type);
+                pstmt.setString(5, item);
+                pstmt.setString(6, description);
+                pstmt.setString(7, location);
+                pstmt.setInt(8, credit);
+                pstmt.setInt(9, debit);
+                pstmt.setInt(10, balance);
                 pstmt.executeUpdate();
-                System.out.println("Insert success!!!");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error in JTable ..... " + e);
+                JOptionPane.showMessageDialog(null, "Error in insert ledger: " + e);
             }
             return true;
 
@@ -160,7 +157,7 @@ public class InsertModal extends JDialog {
         }
 
         return false;
-    }*/
+    }
 
     JPanel paButton;
     JLabel lbDate, lbMethod, lbType, lbItem, lbDescription, lbLocation, lbCredit, lbDebit;

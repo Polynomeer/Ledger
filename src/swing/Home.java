@@ -665,6 +665,7 @@ public class Home extends javax.swing.JFrame {
 //        JOptionPane.showMessageDialog(null, "Insert button clicked!");
         InsertModal insertModal = new InsertModal(Home.this, user);
         insertModal.setVisible(true);
+        setJTable();
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {

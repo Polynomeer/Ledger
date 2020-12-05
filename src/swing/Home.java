@@ -701,7 +701,8 @@ public class Home extends javax.swing.JFrame {
         }
         int lid = (int) jTable1.getValueAt(index, 0);
         if (deleteLedger(lid)) {
-            JOptionPane.showMessageDialog(null, "Delete ledger completed!");
+            JOptionPane.showMessageDialog(null, "Ledger delete completed!");
+            setJTable();
         }
 
     }
@@ -709,8 +710,7 @@ public class Home extends javax.swing.JFrame {
     private boolean deleteLedger(int lid) {
         try {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM ledger WHERE lid = " + lid);
-            System.out.println(ps);
-            ps.executeQuery();
+            ps.executeUpdate();
 
             return true;
 
@@ -783,7 +783,6 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error in JTable: " + e);
         }
     }
-
 
     // Variables declaration - do not modify
     private javax.swing.JPanel btn_1;

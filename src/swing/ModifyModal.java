@@ -145,10 +145,9 @@ public class ModifyModal extends JDialog {
             String location = txtLocation.getText();
             int credit = Integer.parseInt(txtCredit.getText());
             int debit = Integer.parseInt(txtDebit.getText());
-            int balance = findLastBalance();
 
             try {
-                PreparedStatement pstmt = connection.prepareStatement("UPDATE ledger SET date = ?, method = ?, type = ?, item = ?, description = ?, location = ?, credit = ?, debit = ?, balance = ? WHERE lid = " + ledger.getLid());
+                PreparedStatement pstmt = connection.prepareStatement("UPDATE ledger SET date = ?, method = ?, type = ?, item = ?, description = ?, location = ?, credit = ?, debit = ? WHERE lid = " + ledger.getLid());
 
                 pstmt.setString(1, date);
                 pstmt.setString(2, method);
@@ -158,7 +157,6 @@ public class ModifyModal extends JDialog {
                 pstmt.setString(6, location);
                 pstmt.setInt(7, credit);
                 pstmt.setInt(8, debit);
-                pstmt.setInt(9, balance);
                 pstmt.executeUpdate();
 
             } catch (Exception e) {
@@ -175,10 +173,14 @@ public class ModifyModal extends JDialog {
 
     private int findLastBalance() {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid() + " ORDER BY date");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid() + " ORDER BY date DESC LIMIT 1");
             ResultSet rs = ps.executeQuery();
+            int balance = 0;
 
-            return rs.getInt("balance");
+            while (rs.next()) {
+                balance = rs.getInt("balance");
+            }
+            return balance;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error in finding last balance: " + e);

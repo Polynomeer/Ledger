@@ -136,7 +136,7 @@ public class InsertModal extends JDialog {
             int balance = findLastBalance();    // Get ledgers matched uid order by date
             if (balance == 0) return false;
             balance += credit - debit;          // Add last record's balance += credit - debit
-
+            // TODO: To handle exception : user input the last date
             try {
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO ledger (uid, date, method, type, item, description, location, credit, debit, balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 pstmt.setInt(1, uid);
@@ -171,7 +171,6 @@ public class InsertModal extends JDialog {
             while (rs.next()) {
                 balance = rs.getInt("balance");
             }
-
             return balance;
 
         } catch (Exception e) {

@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -531,13 +532,19 @@ public class Home extends javax.swing.JFrame {
         });
         jTable1.setGridColor(new java.awt.Color(204, 204, 204));
         jTable1.setRowHeight(22);
+
         getLedgerList();
         setJTable();
         jScrollPane1.setViewportView(jTable1);
 
         jLabel17.setText("Summary");
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            // To hide lid column
+            jTable1.getColumnModel().getColumn(0).setWidth(0);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(90);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);

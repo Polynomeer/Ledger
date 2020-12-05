@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Arrays;
 
-public class LogIn extends JFrame {
+public class Login extends JFrame {
     private Connection connection;
     private User user;
 
@@ -20,7 +20,7 @@ public class LogIn extends JFrame {
     private JPasswordField txtPw;
     private JButton btnLogin, btnSign;
 
-    public LogIn() {
+    public Login() {
         Connector connector = new Connector();
         connection = connector.connect();
 
@@ -96,8 +96,8 @@ public class LogIn extends JFrame {
         });
 
         btnSign.addActionListener(e -> {
-            SignUp signUp = new SignUp(LogIn.this, txtId);
-            signUp.setVisible(true);
+            SignupModal signupModal = new SignupModal(Login.this, txtId);
+            signupModal.setVisible(true);
         });
 
     }

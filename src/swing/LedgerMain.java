@@ -38,7 +38,7 @@ public class LedgerMain {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new LogIn();
+                    new Login();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error in LedgerMain ..... " + e);
                     System.exit(1);

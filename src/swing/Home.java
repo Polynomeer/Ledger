@@ -13,10 +13,7 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -680,7 +677,7 @@ public class Home extends javax.swing.JFrame {
     private void btn_exitMousePressed(java.awt.event.MouseEvent evt) {
         JOptionPane.showMessageDialog(null, "You have logged out.");
         setVisible(false);
-        new LogIn();
+        new Login();
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {

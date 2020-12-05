@@ -8,10 +8,10 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class SignUp extends JDialog {
+public class SignupModal extends JDialog {
     Connection connection;
 
-    public SignUp(Window parent, JTextField textField) {
+    public SignupModal(Window parent, JTextField textField) {
         super(parent, "Sign Up", ModalityType.APPLICATION_MODAL);
 
         Connector connector = new Connector();

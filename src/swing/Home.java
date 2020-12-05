@@ -5,6 +5,7 @@
  */
 package swing;
 
+import beans.Ledger;
 import beans.User;
 import service.Connector;
 
@@ -12,6 +13,9 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -527,6 +531,7 @@ public class Home extends javax.swing.JFrame {
         });
         jTable1.setGridColor(new java.awt.Color(204, 204, 204));
         jTable1.setRowHeight(22);
+        getLedgerList();
         setJTable();
         jScrollPane1.setViewportView(jTable1);
 
@@ -707,15 +712,36 @@ public class Home extends javax.swing.JFrame {
 
     }
 
-    private void setJTable() {
+    private void getLedgerList() {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid());
             ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int lid = rs.getInt("lid");
+                Date date = rs.getDate("date");
+                String method = rs.getString("method");
+                String type = rs.getString("type");
+                String item = rs.getString("item");
+                String description = rs.getString("description");
+                String location = rs.getString("location");
+                int credit = rs.getInt("credit");
+                int debit = rs.getInt("debit");
+                int balance = rs.getInt("balance");
+                ledgerList.add(new Ledger(lid, date, method, type, item, description, location, credit, debit, balance));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error in getting ledger list ..... " + e);
+        }
+    }
+
+    private void setJTable() {
+        try {
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
             tm.setRowCount(0);
 
-            while (rs.next()) {
-                Object o[] = {rs.getDate("date"), rs.getString("method"), rs.getString("type"), rs.getString("item"), rs.getString("location"), rs.getInt("credit"), rs.getInt("debit"), rs.getInt("balance"), false};
+            for (Ledger ledger : ledgerList) {
+                Object o[] = {ledger.getDate(), ledger.getMethod(), ledger.getType(), ledger.getItem(), ledger.getLocation(), ledger.getCredit(), ledger.getDebit(), ledger.getBalance(), false};
                 tm.addRow(o);
             }
         } catch (Exception e) {
@@ -768,4 +794,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel side_pane;
     // End of variables declaration
+
+    List<Ledger> ledgerList = new ArrayList<>();
 }

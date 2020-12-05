@@ -515,14 +515,14 @@ public class Home extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {"2020-11-11", "Card", "Food", "Pizza", "Seoul", 0, 8000, 0, false},
+                        {1, "2020-11-11", "Card", "Food", "Pizza", "Seoul", 0, 8000, 0, false},
                 },
                 new String[]{
-                        "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance", "Select"
+                        "id", "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance", "Select"
                 }
         ) {
             Class[] types = new Class[]{
-                    String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class
+                    Integer.class, String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -537,11 +537,12 @@ public class Home extends javax.swing.JFrame {
 
         jLabel17.setText("Summary");
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(90);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(90);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(40);
         }
 
         jLabel18.setText("This Month");
@@ -741,7 +742,7 @@ public class Home extends javax.swing.JFrame {
             tm.setRowCount(0);
 
             for (Ledger ledger : ledgerList) {
-                Object o[] = {ledger.getDate(), ledger.getMethod(), ledger.getType(), ledger.getItem(), ledger.getLocation(), ledger.getCredit(), ledger.getDebit(), ledger.getBalance(), false};
+                Object o[] = {ledger.getLid(), ledger.getDate(), ledger.getMethod(), ledger.getType(), ledger.getItem(), ledger.getLocation(), ledger.getCredit(), ledger.getDebit(), ledger.getBalance(), false};
                 tm.addRow(o);
             }
         } catch (Exception e) {

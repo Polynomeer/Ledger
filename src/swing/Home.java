@@ -678,33 +678,30 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void btn_exitMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "You have logged out.");
         setVisible(false);
         new LogIn();
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-//        JOptionPane.showMessageDialog(null, "Insert button clicked!");
         InsertModal insertModal = new InsertModal(Home.this, user);
         insertModal.setVisible(true);
         setJTable();
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        int index = jTable1.getSelectedRow();
-        if (index == -1) {
+        int[] index = jTable1.getSelectedRows();
+        if (index[0] == -1) {
             JOptionPane.showMessageDialog(null, "Select a row in table.");
             return;
         }
-        int lid = (int) jTable1.getValueAt(index, 0);
-        if (deleteLedger(lid)) {
-            JOptionPane.showMessageDialog(null, "Ledger delete completed!");
-            setJTable();
+        for (int i = 0; i < index.length; i++) {
+            int lid = (int) jTable1.getValueAt(index[i], 0);
+            if (deleteLedger(lid)) {
+                JOptionPane.showMessageDialog(null, "Ledger delete completed!");
+                setJTable();
+            }
         }
-
     }
 
     private boolean deleteLedger(int lid) {
@@ -713,7 +710,6 @@ public class Home extends javax.swing.JFrame {
             ps.executeUpdate();
 
             return true;
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error in deleting ledger: " + e);
         }
@@ -721,7 +717,6 @@ public class Home extends javax.swing.JFrame {
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
         int index = jTable1.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(null, "Select a row in table.");
@@ -731,7 +726,6 @@ public class Home extends javax.swing.JFrame {
         ModifyModal modifyModal = new ModifyModal(Home.this, user, ledger);
         modifyModal.setVisible(true);
         setJTable();
-//        JOptionPane.showMessageDialog(null, "Modify button clicked!");
     }
 
     private Ledger getLedgerFromTable(int index) {
@@ -760,12 +754,10 @@ public class Home extends javax.swing.JFrame {
     private void resetColor(JPanel[] pane, JPanel[] indicators) {
         for (int i = 0; i < pane.length; i++) {
             pane[i].setBackground(new Color(23, 35, 51));
-
         }
         for (int i = 0; i < indicators.length; i++) {
             indicators[i].setOpaque(false);
         }
-
     }
 
     private void setJTable() {

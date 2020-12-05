@@ -770,7 +770,7 @@ public class Home extends javax.swing.JFrame {
 
     private void setJTable() {
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid());
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid() + " ORDER BY DATE");
             ResultSet rs = ps.executeQuery();
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
             tm.setRowCount(0);

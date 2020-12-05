@@ -694,8 +694,30 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        int index = jTable1.getSelectedRow();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(null, "Select a row in table.");
+            return;
+        }
+        int lid = (int) jTable1.getValueAt(index, 0);
+        if (deleteLedger(lid)) {
+            JOptionPane.showMessageDialog(null, "Delete ledger completed!");
+        }
 
-        JOptionPane.showMessageDialog(null, "Delete button clicked!");
+    }
+
+    private boolean deleteLedger(int lid) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM ledger WHERE lid = " + lid);
+            System.out.println(ps);
+            ps.executeQuery();
+
+            return true;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error in deleting ledger: " + e);
+        }
+        return false;
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {

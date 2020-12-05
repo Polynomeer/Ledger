@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class InsertModal extends JDialog {
     Connection connection;
@@ -132,8 +133,10 @@ public class InsertModal extends JDialog {
             String location = txtLocation.getText();
             int credit = Integer.parseInt(txtCredit.getText());
             int debit = Integer.parseInt(txtDebit.getText());
-            int balance = 0;
-            // TODO: get ledgers matched uid order by date, and add last record's balance += credit - debit
+            int balance = findLastBalance();    // Get ledgers matched uid order by date
+            if (balance == 0) return false;
+            balance += credit - debit;          // Add last record's balance += credit - debit
+
             try {
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO ledger (uid, date, method, type, item, description, location, credit, debit, balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 pstmt.setInt(1, uid);
@@ -157,6 +160,24 @@ public class InsertModal extends JDialog {
         }
 
         return false;
+    }
+
+    private int findLastBalance() {
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid() + " ORDER BY date DESC LIMIT 1");
+            ResultSet rs = ps.executeQuery();
+            int balance = 0;
+
+            while (rs.next()) {
+                balance = rs.getInt("balance");
+            }
+
+            return balance;
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error in finding last balance: " + e);
+        }
+        return 0;
     }
 
     JPanel paButton;

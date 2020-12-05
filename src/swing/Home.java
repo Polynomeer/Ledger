@@ -697,11 +697,12 @@ public class Home extends javax.swing.JFrame {
         }
         for (int i = 0; i < index.length; i++) {
             int lid = (int) jTable1.getValueAt(index[i], 0);
-            if (deleteLedger(lid)) {
-                JOptionPane.showMessageDialog(null, "Ledger delete completed!");
-                setJTable();
+            if (!deleteLedger(lid)) {
+                JOptionPane.showMessageDialog(null, "Failed to delete ledger.");
             }
         }
+        JOptionPane.showMessageDialog(null, "Ledger delete completed!");
+        setJTable();
     }
 
     private boolean deleteLedger(int lid) {

@@ -134,9 +134,8 @@ public class InsertModal extends JDialog {
             int credit = Integer.parseInt(txtCredit.getText());
             int debit = Integer.parseInt(txtDebit.getText());
             int balance = findLastBalance();    // Get ledgers matched uid order by date
-            if (balance == 0) return false;
             balance += credit - debit;          // Add last record's balance += credit - debit
-            // TODO: To handle exception : user input the last date
+            // TODO: To handle exception : user input the last date -> update balance
             try {
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO ledger (uid, date, method, type, item, description, location, credit, debit, balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 pstmt.setInt(1, uid);
@@ -182,7 +181,6 @@ public class InsertModal extends JDialog {
     JPanel paButton;
     JLabel lbDate, lbMethod, lbType, lbItem, lbDescription, lbLocation, lbCredit, lbDebit;
     JTextField txtDate, txtMethod, txtType, txtItem, txtDescription, txtLocation, txtCredit, txtDebit;
-
     JButton btnSubmit, btnCancel;
 
 }

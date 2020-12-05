@@ -516,14 +516,14 @@ public class Home extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {1, "2020-11-11", "Card", "Food", "Pizza", "Seoul", 0, 8000, 0, false},
+                        {1, "2020-11-11", "Card", "Food", "Pizza", "", "Seoul", 0, 8000, 0, false},
                 },
                 new String[]{
-                        "id", "Date", "Method", "Type", "Item", "Location", "Credit", "Debit", "Balance", "Select"
+                        "id", "Date", "Method", "Type", "Item", "Description", "Location", "Credit", "Debit", "Balance", "Select"
                 }
         ) {
             Class[] types = new Class[]{
-                    Integer.class, String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class
+                    Integer.class, String.class, String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -533,7 +533,6 @@ public class Home extends javax.swing.JFrame {
         jTable1.setGridColor(new java.awt.Color(204, 204, 204));
         jTable1.setRowHeight(22);
 
-        getLedgerList();
         setJTable();
         jScrollPane1.setViewportView(jTable1);
 
@@ -545,11 +544,16 @@ public class Home extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(0).setMinWidth(0);
 
+            jTable1.getColumnModel().getColumn(5).setWidth(0);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(0);
+
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(90);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(10).setPreferredWidth(40);
         }
 
         jLabel18.setText("This Month");
@@ -696,8 +700,30 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        int index = jTable1.getSelectedRow();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(null, "Select a row in table.");
+            return;
+        }
+        Ledger ledger = getLedgerFromTable(index);
+        ModifyModal modifyModal = new ModifyModal(Home.this, user, ledger);
+        modifyModal.setVisible(true);
+        setJTable();
+//        JOptionPane.showMessageDialog(null, "Modify button clicked!");
+    }
 
-        JOptionPane.showMessageDialog(null, "Modify button clicked!");
+    private Ledger getLedgerFromTable(int index) {
+        int lid = (int) jTable1.getValueAt(index, 0);
+        Date date = (Date) jTable1.getValueAt(index, 1);
+        String method = (String) jTable1.getValueAt(index, 2);
+        String type = (String) jTable1.getValueAt(index, 3);
+        String item = (String) jTable1.getValueAt(index, 4);
+        String description = (String) jTable1.getValueAt(index, 5);
+        String location = (String) jTable1.getValueAt(index, 6);
+        int credit = (int) jTable1.getValueAt(index, 7);
+        int debit = (int) jTable1.getValueAt(index, 8);
+        int balance = (int) jTable1.getValueAt(index, 9);
+        return new Ledger(lid, date, method, type, item, description, location, credit, debit, balance);
     }
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -720,42 +746,22 @@ public class Home extends javax.swing.JFrame {
 
     }
 
-    private void getLedgerList() {
+    private void setJTable() {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM ledger WHERE uid = " + user.getUid());
             ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                int lid = rs.getInt("lid");
-                Date date = rs.getDate("date");
-                String method = rs.getString("method");
-                String type = rs.getString("type");
-                String item = rs.getString("item");
-                String description = rs.getString("description");
-                String location = rs.getString("location");
-                int credit = rs.getInt("credit");
-                int debit = rs.getInt("debit");
-                int balance = rs.getInt("balance");
-                ledgerList.add(new Ledger(lid, date, method, type, item, description, location, credit, debit, balance));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in getting ledger list ..... " + e);
-        }
-    }
-
-    private void setJTable() {
-        try {
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
             tm.setRowCount(0);
 
-            for (Ledger ledger : ledgerList) {
-                Object o[] = {ledger.getLid(), ledger.getDate(), ledger.getMethod(), ledger.getType(), ledger.getItem(), ledger.getLocation(), ledger.getCredit(), ledger.getDebit(), ledger.getBalance(), false};
+            while (rs.next()) {
+                Object o[] = {rs.getInt("lid"), rs.getDate("date"), rs.getString("method"), rs.getString("type"), rs.getString("item"), rs.getString("description"), rs.getString("location"), rs.getInt("credit"), rs.getInt("debit"), rs.getInt("balance"), false};
                 tm.addRow(o);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error in JTable ..... " + e);
+            JOptionPane.showMessageDialog(null, "Error in JTable: " + e);
         }
     }
+
 
     // Variables declaration - do not modify
     private javax.swing.JPanel btn_1;
@@ -803,5 +809,4 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel side_pane;
     // End of variables declaration
 
-    List<Ledger> ledgerList = new ArrayList<>();
 }
